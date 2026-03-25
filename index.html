@@ -937,6 +937,166 @@ a      { color:inherit; text-decoration:none }
 }
 .upload-status.ok  { color:#10b981 }
 .upload-status.err { color:var(--red2) }
+/* ── Mobile Bottom Nav ────────────────────────────────────── */
+#mobile-nav {
+  display: none;
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+@media (max-width: 768px) {
+  /* Body: allow scroll on mobile, account for bottom bars */
+  html, body { overflow: hidden; height: 100%; }
+
+  /* Shell: stack vertically, sidebar hidden on mobile */
+  #shell { flex-direction: column; }
+
+  #sidebar { display: none; }
+
+  /* Topbar: compact on mobile */
+  .topbar {
+    padding: 10px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    flex: 1;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .upload-btn {
+    padding: 8px 10px;
+    font-size: .7rem;
+    gap: 5px;
+  }
+  .upload-btn span { display: none; }
+
+  /* Pages: less horizontal padding */
+  .page { padding: 0 14px 140px; }
+  .page-hero { padding: 28px 14px 20px; margin: 0 -14px 20px; }
+  .pl-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 14px 20px;
+    margin: 0 -14px 20px;
+    gap: 16px;
+  }
+  .pl-hero-art { width: 140px; height: 140px; }
+  .pl-ctrls { justify-content: center; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+  .hero-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .pl-hname   { font-size: clamp(1.2rem, 6vw, 2rem); }
+
+  /* Cards grid: 2 columns on mobile */
+  .cards-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .mcard { padding: 10px; }
+  /* Always show play/dl buttons on mobile (no hover) */
+  .card-play { opacity: 1; transform: translateY(0) scale(1); }
+  .card-dl   { opacity: 1; transform: translateY(0) scale(1); }
+
+  /* Track rows: hide track number column, compress */
+  .trow {
+    grid-template-columns: 36px 1fr auto;
+    gap: 10px;
+    padding: 6px 8px;
+  }
+  .tnum { display: none; }
+  /* Always show dl button on mobile */
+  .tdl-btn { opacity: 1; }
+
+  /* Playbar: 2-row compact layout */
+  #playbar {
+    height: auto;
+    flex-direction: column;
+    padding: 8px 12px 10px;
+    gap: 6px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+  .now-info {
+    width: 100%;
+    gap: 10px;
+  }
+  .now-art { width: 42px; height: 42px; }
+  .now-title  { font-size: .78rem; }
+  .now-artist { font-size: .66rem; }
+  /* Compact heart / lyrics buttons */
+  .heart-btn { width: 28px; height: 28px; }
+  .heart-btn svg { width: 15px; height: 15px; }
+
+  .center-ctrl {
+    width: 100%;
+    gap: 4px;
+    max-width: 100%;
+    margin: 0;
+  }
+  .ctrl-row { gap: 10px; }
+  .cbtn { width: 28px; height: 28px; }
+  .cbtn svg { width: 15px; height: 15px; }
+  .pp-btn { width: 36px; height: 36px; }
+  .pp-btn svg { width: 15px; height: 15px; }
+  .prog-row { gap: 6px; }
+  .ptime { width: 28px; font-size: .6rem; }
+
+  /* Hide right controls (volume etc.) on mobile */
+  .right-ctrl { display: none; }
+
+  /* Mobile Bottom Nav */
+  #mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #0a0a0a;
+    border-top: 1px solid var(--border);
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    flex-shrink: 0;
+    z-index: 200;
+  }
+  .mob-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    color: var(--sub);
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 16px;
+    border-radius: var(--r2);
+    cursor: pointer;
+    transition: color var(--t);
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .mob-nav-item svg { width: 20px; height: 20px; }
+  .mob-nav-item.active { color: var(--text); }
+  .mob-nav-item.active svg { color: var(--red); }
+
+  /* Modals: full-width on mobile */
+  .modal { width: calc(100vw - 32px); max-width: 420px; padding: 20px; }
+  .upload-modal { width: calc(100vw - 32px); max-width: 460px; }
+  .lyrics-modal { width: calc(100vw - 24px); max-height: 88vh; }
+
+  /* Section: less bottom margin */
+  .section { margin-bottom: 24px; }
+  .section-title { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller: 2 columns still fine, tighten spacing */
+  .topbar { padding: 8px 10px; }
+  .page { padding: 0 10px 140px; }
+  .page-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
+  .pl-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
+  .hero-stats { gap: 12px; }
+  .cards-row { gap: 6px; }
+  .mcard { padding: 8px; }
+  .card-title { font-size: .75rem; }
+  .card-sub   { font-size: .66rem; }
+  .upload-btn { padding: 7px 8px; }
+}
+
 /* ── Lyrics Modal ─────────────────────────────────────────── */
 .lyrics-modal {
   width: 520px;
@@ -1140,6 +1300,29 @@ a      { color:inherit; text-decoration:none }
     </div>
   </main>
 </div>
+<!-- Mobile Bottom Navigation -->
+<nav id="mobile-nav">
+  <button class="mob-nav-item active" id="mobNavHome">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.7 2.3a1 1 0 0 0-1.4 0l-9 9A1 1 0 0 0 3 13h1v8a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 .7-1.7l-9-9z"/></svg>
+    Home
+  </button>
+  <button class="mob-nav-item" id="mobNavSearch">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    Search
+  </button>
+  <button class="mob-nav-item" id="mobNavRandom">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+    Match
+  </button>
+  <button class="mob-nav-item" id="mobNavLibrary">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Library
+  </button>
+  <button class="mob-nav-item" id="mobNavUpload">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Upload
+  </button>
+</nav>
 <div id="playbar">
   <div class="now-info">
     <div class="now-art now-art-default" id="barArt">
@@ -2668,6 +2851,38 @@ document.addEventListener('keydown', function(e){
   if(e.code==='ArrowRight'&&e.shiftKey) nextTrack();
   if(e.code==='ArrowLeft' &&e.shiftKey) prevTrack();
 });
+// ── Mobile nav wiring ──────────────────────────────────────
+(function() {
+  function setMobActive(id) {
+    document.querySelectorAll('.mob-nav-item').forEach(function(b){ b.classList.remove('active'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+  var mHome = document.getElementById('mobNavHome');
+  var mSearch = document.getElementById('mobNavSearch');
+  var mRandom = document.getElementById('mobNavRandom');
+  var mLib = document.getElementById('mobNavLibrary');
+  var mUpload = document.getElementById('mobNavUpload');
+
+  if (mHome) mHome.addEventListener('click', function(){ setMobActive('mobNavHome'); showHome(); });
+  if (mSearch) mSearch.addEventListener('click', function(){ setMobActive('mobNavSearch'); focusSearch(); });
+  if (mRandom) mRandom.addEventListener('click', function(){ setMobActive('mobNavRandom'); showRandomPage(); });
+  if (mLib) mLib.addEventListener('click', function(){
+    setMobActive('mobNavLibrary');
+    // Show liked songs as library on mobile
+    showLikedPage();
+  });
+  if (mUpload) mUpload.addEventListener('click', function(){ openUploadModal(); });
+
+  // Sync mobile nav active state when desktop nav is used
+  var origShowHome = showHome;
+  showHome = function() { origShowHome.apply(this, arguments); setMobActive('mobNavHome'); };
+  var origFocusSearch = focusSearch;
+  focusSearch = function() { origFocusSearch.apply(this, arguments); setMobActive('mobNavSearch'); };
+  var origShowRandomPage = showRandomPage;
+  showRandomPage = function() { origShowRandomPage.apply(this, arguments); setMobActive('mobNavRandom'); };
+})();
+
 renderSidebar();
 var _startHash = decodeURIComponent(window.location.hash.slice(1));
 if (_startHash) {
