@@ -357,8 +357,8 @@ a      { color:inherit; text-decoration:none }
 .section-more:hover { color:var(--text) }
 .cards-row {
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(148px,1fr));
-  gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(80px,18vw,160px),1fr));
+  gap:clamp(5px,1.2vw,12px);
   min-width:0;
   width:100%;
 }
@@ -1006,9 +1006,9 @@ a      { color:inherit; text-decoration:none }
   .hero-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
   .pl-hname   { font-size: clamp(1.2rem, 6vw, 2rem); }
 
-  /* Cards grid: 4 columns, compact on mobile — always complete rows */
+  /* Cards grid: fluid on mobile, auto-fill based on screen width */
   .cards-row {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(clamp(70px, 21vw, 120px), 1fr));
     gap: 6px;
     overflow: hidden;
     width: 100%;
@@ -1020,12 +1020,12 @@ a      { color:inherit; text-decoration:none }
   /* Smaller play button on mobile cards */
   .card-play { width: 26px; height: 26px; bottom: 5px; right: 5px; }
   .card-play svg { width: 10px; height: 10px; margin-left: 1px; }
-  /* Hide download button on card art (too crowded at 4-col) */
+  /* Hide download button on card art (too crowded on mobile) */
   .card-dl { display: none; }
   /* Always show play button on mobile (no hover needed) */
   .card-play { opacity: 1; transform: translateY(0) scale(1); }
-  /* Hide any card beyond 8 so we always show exactly 2 complete rows */
-  .cards-row .mcard:nth-child(n+9) { display: none; }
+  /* Show up to 12 cards — grid auto-fill ensures only complete rows render */
+  .cards-row .mcard:nth-child(n+13) { display: none; }
 
   /* Track rows: hide track number column, compress */
   .trow {
@@ -1129,12 +1129,39 @@ a      { color:inherit; text-decoration:none }
   .page-hero { padding: 18px 8px 14px; margin: 0 -8px 16px; overflow: hidden; }
   .pl-hero { padding: 18px 8px 14px; margin: 0 -8px 16px; overflow: hidden; }
   .hero-stats { gap: 10px; }
-  /* 4 columns, even tighter gap */
   .cards-row { gap: 4px; overflow: hidden; }
   .mcard { padding: 5px; min-width: 0; overflow: hidden; }
   .card-art { margin-bottom: 5px; }
-  .card-title { font-size: .62rem; }
-  .card-sub   { font-size: .55rem; }
+  .card-title { font-size: .6rem; }
+  .card-sub   { font-size: .54rem; }
+}
+
+/* Tablet: sidebar shows, grid gets more columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cards-row {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+}
+
+/* Large desktop: bigger cards */
+@media (min-width: 1400px) {
+  .cards-row {
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 14px;
+  }
+  .mcard { padding: 16px; }
+  .card-title { font-size: .88rem; }
+  .card-sub   { font-size: .76rem; }
+}
+
+/* Extra large desktop */
+@media (min-width: 1800px) {
+  .cards-row {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .mcard { padding: 18px; }
 }
 
 /* ── Lyrics Modal ─────────────────────────────────────────── */
@@ -2545,7 +2572,7 @@ function renderHome() {
     var unsurfaced = mergeCat('unsurfaced',         res[3]);
     var sessions   = mergeCat('recording_session',  res[4]);
     var all=released.concat(unreleased).concat(unsurfaced).concat(sessions);
-    var mixed=all.slice().sort(function(){return Math.random()-.5;}).slice(0,8);
+    var mixed=all.slice().sort(function(){return Math.random()-.5;}).slice(0,12);
     var html=hero;
     if (mixed.length) {
       html+='<div class="section"><div class="section-head"><div class="section-title">Quick Picks</div></div>'+
@@ -2564,7 +2591,7 @@ function renderHome() {
           '<div class="section-title">'+c.label+'</div>'+
           '<span class="section-more" data-cat="'+c.cat+'">See all</span>'+
         '</div>'+
-        '<div class="cards-row">'+c.tracks.slice(0,8).map(function(t,i){return mCard(t,c.tracks,i);}).join('')+'</div>'+
+        '<div class="cards-row">'+c.tracks.slice(0,12).map(function(t,i){return mCard(t,c.tracks,i);}).join('')+'</div>'+
       '</div>';
     });
     if (!all.length) html+='<div class="api-err"><b>API error:</b> No songs returned. Check your worker URL.</div>';
