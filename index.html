@@ -271,7 +271,7 @@ a      { color:inherit; text-decoration:none }
 }
 .upload-btn:hover { background:var(--red-dim); border-color:rgba(232,53,42,.4); color:var(--red2); }
 .upload-btn svg { width:15px; height:15px; flex-shrink:0 }
-.pages { flex:1; overflow-y:auto; position:relative; contain:layout style; }
+.pages { flex:1; overflow-y:auto; overflow-x:hidden; position:relative; contain:layout style; }
 .page  { padding:0 28px 120px; display:none }
 .page.active { display:block }
 .page-hero {
@@ -944,8 +944,14 @@ a      { color:inherit; text-decoration:none }
 
 /* ── Responsive Breakpoints ───────────────────────────────── */
 @media (max-width: 768px) {
-  /* Body: allow scroll on mobile, account for bottom bars */
+  /* Prevent ALL horizontal overflow on mobile */
   html, body { overflow: hidden; height: 100%; }
+  html { overflow-x: hidden; }
+  body { overflow-x: hidden; }
+  #shell { overflow-x: hidden; }
+  #main  { overflow-x: hidden; }
+  .pages { overflow-x: hidden; }
+  .page  { overflow-x: hidden; }
 
   /* Shell: stack vertically, sidebar hidden on mobile */
   #shell { flex-direction: column; }
@@ -957,11 +963,16 @@ a      { color:inherit; text-decoration:none }
     padding: 12px 14px;
     gap: 0;
     flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .search-wrap {
     flex: 1;
     max-width: 100%;
     min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .search-inner {
     border-radius: 12px;
@@ -975,7 +986,8 @@ a      { color:inherit; text-decoration:none }
 
   /* Pages: tighter padding so 4-col grid has more room */
   .page { padding: 0 10px 140px; }
-  .page-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
+  .page-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; overflow: hidden; }
+  /* Negative margins must exactly match page padding to avoid overflow */
   .pl-hero {
     flex-direction: column;
     align-items: center;
@@ -1014,16 +1026,21 @@ a      { color:inherit; text-decoration:none }
   /* Always show dl button on mobile */
   .tdl-btn { opacity: 1; }
 
-  /* Playbar: 2-row compact layout */
+  /* Playbar: 2-row compact layout, fully contained */
   #playbar {
     height: auto;
     flex-direction: column;
     padding: 8px 12px 10px;
     gap: 6px;
     padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .now-info {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     gap: 10px;
   }
   .now-art { width: 42px; height: 42px; }
@@ -1035,8 +1052,10 @@ a      { color:inherit; text-decoration:none }
 
   .center-ctrl {
     width: 100%;
-    gap: 4px;
     max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    gap: 4px;
     margin: 0;
   }
   .ctrl-row { gap: 10px; }
@@ -1044,7 +1063,7 @@ a      { color:inherit; text-decoration:none }
   .cbtn svg { width: 15px; height: 15px; }
   .pp-btn { width: 36px; height: 36px; }
   .pp-btn svg { width: 15px; height: 15px; }
-  .prog-row { gap: 6px; }
+  .prog-row { gap: 6px; width: 100%; box-sizing: border-box; }
   .ptime { width: 28px; font-size: .6rem; }
 
   /* Hide right controls (volume etc.) on mobile */
