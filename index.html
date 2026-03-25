@@ -952,23 +952,26 @@ a      { color:inherit; text-decoration:none }
 
   #sidebar { display: none; }
 
-  /* Topbar: compact on mobile */
+  /* Topbar: clean single-row search on mobile */
   .topbar {
-    padding: 10px 12px;
-    gap: 8px;
-    flex-wrap: wrap;
+    padding: 12px 14px;
+    gap: 0;
+    flex-wrap: nowrap;
   }
   .search-wrap {
     flex: 1;
     max-width: 100%;
     min-width: 0;
   }
-  .upload-btn {
-    padding: 8px 10px;
-    font-size: .7rem;
-    gap: 5px;
+  .search-inner {
+    border-radius: 12px;
+    padding: 11px 14px;
+    background: var(--surface2);
+    border-color: var(--border2);
   }
-  .upload-btn span { display: none; }
+  .search-inner input { font-size: .9rem; }
+  /* Hide upload button from topbar on mobile — it lives in the bottom nav */
+  .upload-btn { display: none; }
 
   /* Pages: less horizontal padding */
   .page { padding: 0 14px 140px; }
@@ -1094,7 +1097,6 @@ a      { color:inherit; text-decoration:none }
   .mcard { padding: 8px; }
   .card-title { font-size: .75rem; }
   .card-sub   { font-size: .66rem; }
-  .upload-btn { padding: 7px 8px; }
 }
 
 /* ── Lyrics Modal ─────────────────────────────────────────── */
