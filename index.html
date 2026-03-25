@@ -973,15 +973,15 @@ a      { color:inherit; text-decoration:none }
   /* Hide upload button from topbar on mobile — it lives in the bottom nav */
   .upload-btn { display: none; }
 
-  /* Pages: less horizontal padding */
-  .page { padding: 0 14px 140px; }
-  .page-hero { padding: 28px 14px 20px; margin: 0 -14px 20px; }
+  /* Pages: tighter padding so 4-col grid has more room */
+  .page { padding: 0 10px 140px; }
+  .page-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
   .pl-hero {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 28px 14px 20px;
-    margin: 0 -14px 20px;
+    padding: 22px 10px 16px;
+    margin: 0 -10px 18px;
     gap: 16px;
   }
   .pl-hero-art { width: 140px; height: 140px; }
@@ -990,12 +990,19 @@ a      { color:inherit; text-decoration:none }
   .hero-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
   .pl-hname   { font-size: clamp(1.2rem, 6vw, 2rem); }
 
-  /* Cards grid: 2 columns on mobile */
-  .cards-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .mcard { padding: 10px; }
-  /* Always show play/dl buttons on mobile (no hover) */
+  /* Cards grid: 4 columns, compact on mobile */
+  .cards-row { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .mcard { padding: 7px; border-radius: 8px; }
+  .card-art { margin-bottom: 7px; border-radius: 5px; }
+  .card-title { font-size: .68rem; margin-bottom: 1px; letter-spacing: 0; }
+  .card-sub   { font-size: .6rem; }
+  /* Smaller play button on mobile cards */
+  .card-play { width: 26px; height: 26px; bottom: 5px; right: 5px; }
+  .card-play svg { width: 10px; height: 10px; margin-left: 1px; }
+  /* Hide download button on card art (too crowded at 4-col) */
+  .card-dl { display: none; }
+  /* Always show play button on mobile (no hover needed) */
   .card-play { opacity: 1; transform: translateY(0) scale(1); }
-  .card-dl   { opacity: 1; transform: translateY(0) scale(1); }
 
   /* Track rows: hide track number column, compress */
   .trow {
@@ -1087,16 +1094,16 @@ a      { color:inherit; text-decoration:none }
 }
 
 @media (max-width: 480px) {
-  /* Even smaller: 2 columns still fine, tighten spacing */
   .topbar { padding: 8px 10px; }
-  .page { padding: 0 10px 140px; }
-  .page-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
-  .pl-hero { padding: 22px 10px 16px; margin: 0 -10px 18px; }
-  .hero-stats { gap: 12px; }
-  .cards-row { gap: 6px; }
-  .mcard { padding: 8px; }
-  .card-title { font-size: .75rem; }
-  .card-sub   { font-size: .66rem; }
+  .page { padding: 0 8px 140px; }
+  .page-hero { padding: 18px 8px 14px; margin: 0 -8px 16px; }
+  .pl-hero { padding: 18px 8px 14px; margin: 0 -8px 16px; }
+  .hero-stats { gap: 10px; }
+  /* 4 columns, even tighter gap */
+  .cards-row { gap: 5px; }
+  .mcard { padding: 6px; }
+  .card-title { font-size: .62rem; }
+  .card-sub   { font-size: .56rem; }
 }
 
 /* ── Lyrics Modal ─────────────────────────────────────────── */
